@@ -1,0 +1,66 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f8ff;
+    padding: 20px;
+  }
+  
+  h1, h2 {
+    text-align: center;
+  }
+  
+  .container {
+    max-width: 1000px;
+    margin: auto;
+  }
+  
+  .form-section,
+  .result-section {
+    background: white;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  
+  label {
+    display: block;
+    margin-top: 10px;
+  }
+  
+  input,
+  select,
+  button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+  }
+  
+  .match-list,
+  .score-table {
+    margin-top: 20px;
+  }
+  
+  .match-item {
+    padding: 10px;
+    background: #e0f7fa;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  th,
+  td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+  }
+  
+  th {
+    background-color: #e0f7fa;
+  }
+  

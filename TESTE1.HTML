@@ -4,23 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Super Torneio Beach Tennis</title>
-  <style>
-    body { font-family: Arial, sans-serif; background: #f0f8ff; padding: 20px; }
-    h1, h2 { text-align: center; }
-    .container { max-width: 1000px; margin: auto; }
-    .form-section, .result-section { background: white; padding: 20px; margin-top: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    label { display: block; margin-top: 10px; }
-    input, select, button { width: 100%; padding: 10px; margin-top: 5px; }
-    .match-list, .score-table { margin-top: 20px; }
-    .match-item { padding: 10px; background: #e0f7fa; margin-bottom: 10px; border-radius: 5px; }
-    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-    th, td { padding: 10px; border: 1px solid #ccc; text-align: center; }
-    th { background-color: #e0f7fa; }
-  </style>
+  <link rel="stylesheet" href="estilos.css"> <!-- Arquivo CSS separado -->
 </head>
 <body>
   <div class="container">
     <h1>🏖️ Super Torneio Beach Tennis</h1>
+
     <div class="form-section">
       <h2>Cadastro de Jogadores</h2>
       <input type="text" id="playerName" placeholder="Nome do jogador">
@@ -44,90 +33,7 @@
     </div>
   </div>
 
-  <script>
-    const players = [];
-    let matches = [];
-    let results = {};
-
-    function addPlayer() {
-      const nameInput = document.getElementById('playerName');
-      const name = nameInput.value.trim();
-      if (name && !players.includes(name)) {
-        players.push(name);
-        nameInput.value = '';
-        updatePlayerList();
-      }
-    }
-
-    function updatePlayerList() {
-      const listDiv = document.getElementById('playerList');
-      listDiv.innerHTML = '<strong>Jogadores (' + players.length + '):</strong><br>' +
-        players.map((p, i) => `${i + 1}. ${p}`).join('<br>');
-    }
-
-    function generateAllVsAllMatches() {
-      matches = [];
-      results = {};
-      for (let i = 0; i < players.length; i++) {
-        for (let j = i + 1; j < players.length; j++) {
-          const matchId = `${players[i]}_vs_${players[j]}`;
-          matches.push({ p1: players[i], p2: players[j], id: matchId });
-          results[matchId] = { p1: 0, p2: 0 };
-        }
-      }
-      renderMatches();
-    }
-
-    function renderMatches() {
-      const container = document.getElementById('matchResults');
-      container.innerHTML = '';
-      matches.forEach(match => {
-        container.innerHTML += `
-          <div class="match-item">
-            <strong>${match.p1} x ${match.p2}</strong><br>
-            <input type="number" placeholder="Pontos ${match.p1}" onchange="updateScore('${match.id}', 'p1', this.value)">
-            <input type="number" placeholder="Pontos ${match.p2}" onchange="updateScore('${match.id}', 'p2', this.value)">
-          </div>
-        `;
-      });
-    }
-
-    function updateScore(matchId, player, value) {
-      results[matchId][player] = parseInt(value) || 0;
-      updateRanking();
-    }
-
-    function updateRanking() {
-      const stats = {};
-      players.forEach(p => stats[p] = { jogos: 0, vitorias: 0, derrotas: 0, pontosFeitos: 0, pontosSofridos: 0 });
-
-      for (const [matchId, score] of Object.entries(results)) {
-        const [p1, , p2] = matchId.split('_vs_');
-        stats[p1].jogos++;
-        stats[p2].jogos++;
-        stats[p1].pontosFeitos += score.p1;
-        stats[p1].pontosSofridos += score.p2;
-        stats[p2].pontosFeitos += score.p2;
-        stats[p2].pontosSofridos += score.p1;
-
-        if (score.p1 > score.p2) {
-          stats[p1].vitorias++;
-          stats[p2].derrotas++;
-        } else if (score.p2 > score.p1) {
-          stats[p2].vitorias++;
-          stats[p1].derrotas++;
-        }
-      }
-
-      const tableDiv = document.getElementById('rankingTable');
-      let html = '<table><tr><th>Jogador</th><th>Jogos</th><th>Vitórias</th><th>Derrotas</th><th>P.F.</th><th>P.S.</th></tr>';
-      players.forEach(p => {
-        const s = stats[p];
-        html += `<tr><td>${p}</td><td>${s.jogos}</td><td>${s.vitorias}</td><td>${s.derrotas}</td><td>${s.pontosFeitos}</td><td>${s.pontosSofridos}</td></tr>`;
-      });
-      html += '</table>';
-      tableDiv.innerHTML = html;
-    }
-  </script>
+  <script src="script.js"></script> <!-- Opcional: mover o JS para arquivo separado -->
 </body>
 </html>
+
